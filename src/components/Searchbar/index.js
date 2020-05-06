@@ -3,7 +3,14 @@ import styles from './searchbar.module.css';
 import AppContext from '../../context/context';
 export default function Searchbar() {
   const [text, setText] = useState('');
-  const { searchMovies } = useContext(AppContext);
+  const { searchMovies, clear } = useContext(AppContext);
+
+  function handleChange(e) {
+    if (!e.target.value) {
+      clear();
+    }
+    setText(e.target.value);
+  }
   function handleSubmit(e) {
     e.preventDefault();
     console.log(text);
@@ -19,7 +26,7 @@ export default function Searchbar() {
         placeholder="Busque um filme por nome, ano ou gênero..."
         type="text"
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={handleChange}
       />
       <button className={styles.btn} type="submit">
         <img src="/images/search-icon.png" alt="search" />

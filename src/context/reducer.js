@@ -1,10 +1,10 @@
 import {
   SEARCH_MOVIES,
   SET_LOADING,
-  CLEAR_MOVIES,
   GET_MOVIE,
   MOVIE_NOT_FOUND,
   SET_CURRENT_PAGE,
+  CLEAR,
 } from './types';
 
 export default function (state, action) {
@@ -29,12 +29,8 @@ export default function (state, action) {
         ...state,
         loading: true,
       };
-    case CLEAR_MOVIES:
-      return {
-        ...state,
-        movies: [],
-        loading: false,
-      };
+    case CLEAR:
+      return action.payload;
     case GET_MOVIE:
       return {
         ...state,

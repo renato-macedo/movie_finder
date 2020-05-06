@@ -6,10 +6,10 @@ import axios from 'axios';
 import {
   SEARCH_MOVIES,
   SET_LOADING,
-  CLEAR_MOVIES,
   GET_MOVIE,
   MOVIE_NOT_FOUND,
   SET_CURRENT_PAGE,
+  CLEAR,
 } from './types';
 
 function MovieState(props) {
@@ -83,14 +83,12 @@ function MovieState(props) {
       // });
     }
   }
-
-  // Clear Movies
-  function clearMovies() {
+  function clear() {
     dispatch({
-      type: CLEAR_MOVIES,
+      type: CLEAR,
+      payload: initialState,
     });
   }
-
   // Set Loading
   function setLoading() {
     return dispatch({ type: SET_LOADING });
@@ -103,9 +101,9 @@ function MovieState(props) {
         movie: state.movie,
         loading: state.loading,
         searchMovies,
-        clearMovies,
         getMovie,
         setCurrentPage,
+        clear,
         total_pages: state.total_pages,
         currentPage: state.currentPage,
       }}

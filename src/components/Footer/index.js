@@ -58,9 +58,5 @@ export default function Footer() {
     );
   }
 
-  return (
-    <footer className={styles.footer}>
-      <h1>ok</h1>
-    </footer>
-  );
+  return <footer className={styles.footer}></footer>;
 }
