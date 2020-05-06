@@ -1,0 +1,31 @@
+.footer {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  /* background-color: red; */
+}
+.list {
+  align-self: center;
+  margin: 0 auto;
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+}
+
+.page_number {
+  margin: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--secondary-blue);
+  padding: 10px;
+}
+
+.page_number a {
+  text-decoration: none;
+}
+
+.page_number:hover {
+  /* background-color: rgba(0, 230, 238, 0.8);
+  border-radius: 50%; */
+  text-decoration: underline;
+}
