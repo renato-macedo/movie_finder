@@ -19,6 +19,7 @@ function MovieState(props) {
     loading: false,
     total_pages: 0,
     currentPage: 0,
+    query: '',
   };
 
   const [state, dispatch] = useReducer(Reducer, initialState);
@@ -28,13 +29,13 @@ function MovieState(props) {
     setLoading();
 
     try {
-      const res = await axios.get(`/api/movies?search=${text}`);
+      const res = await axios.get(`/api/movies?search=${text}&page=1`); // always first page
 
       console.log(res.data);
       const { results, total_pages } = res.data;
       dispatch({
         type: SEARCH_MOVIES,
-        payload: { movies: results, total_pages },
+        payload: { movies: results, total_pages, query: text },
       });
     } catch (error) {
       dispatch({
@@ -64,11 +65,23 @@ function MovieState(props) {
     // setAlert(null);
   }
 
-  function setCurrentPage(p) {
-    dispatch({
-      type: SET_CURRENT_PAGE,
-      payload: p,
-    });
+  async function setCurrentPage(p) {
+    try {
+      const res = await axios.get(
+        `/api/movies?search=${state.query}&page=${p}`
+      );
+      const { results } = res.data;
+      dispatch({
+        type: SET_CURRENT_PAGE,
+        payload: { movies: results, currentPage: p },
+      });
+    } catch (error) {
+      console.log(error);
+      // dispatch({
+      //   type: SEARCH_MOVIES,
+      //   payload: [],
+      // });
+    }
   }
 
   // Clear Movies

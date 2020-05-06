@@ -3,6 +3,14 @@ import { useContext, useEffect, useState } from 'react';
 import AppContext from '../../context/context';
 
 function calculateRange(currentPage, limit) {
+  if (limit <= 5) {
+    let range = [];
+    for (let i = 1; i <= limit; i++) {
+      range.push(i);
+    }
+
+    return range;
+  }
   if (currentPage <= 3) {
     return [1, 2, 3, 4, 5];
   }

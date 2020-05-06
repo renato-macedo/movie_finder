@@ -15,12 +15,14 @@ export default function (state, action) {
         movies: action.payload.movies,
         total_pages: action.payload.total_pages,
         currentPage: 1,
+        query: action.payload.query,
         loading: false,
       };
     case SET_CURRENT_PAGE:
       return {
         ...state,
-        currentPage: action.payload,
+        currentPage: action.payload.currentPage,
+        movies: action.payload.movies,
       };
     case SET_LOADING:
       return {
