@@ -23,7 +23,7 @@ export default function Searchbar() {
     <form onSubmit={handleSubmit} className={styles.container}>
       <input
         className={styles.input}
-        placeholder="Busque um filme por nome, ano ou gênero..."
+        placeholder="Search"
         type="text"
         value={text}
         onChange={handleChange}

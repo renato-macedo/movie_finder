@@ -1,6 +1,46 @@
+import { useContext } from 'react';
+
 import styles from './footer.module.css';
-import { useContext, useEffect, useState } from 'react';
+
 import AppContext from '../../context/context';
+
+export default function Footer() {
+  const { total_pages, currentPage, setCurrentPage } = useContext(AppContext);
+
+  function selectPage(p) {
+    setCurrentPage(p);
+    window.scrollTo(0, 0);
+  }
+
+  if (total_pages > 0) {
+    const pages = calculateRange(currentPage, total_pages);
+    return (
+      <footer className={styles.footer}>
+        <ul className={styles.list}>
+          {pages.map((p) =>
+            p == currentPage ? (
+              <li className={styles.item} key={p}>
+                <div className="circle">
+                  <div className="inner-circle">{p}</div>
+                </div>
+              </li>
+            ) : (
+              <li
+                className={styles.page_number}
+                key={p}
+                onClick={() => selectPage(p)}
+              >
+                {p}
+              </li>
+            )
+          )}
+        </ul>
+      </footer>
+    );
+  }
+
+  return <footer className={styles.footer}></footer>;
+}
 
 function calculateRange(currentPage, limit) {
   if (limit <= 5) {
@@ -26,37 +66,4 @@ function calculateRange(currentPage, limit) {
     currentPage + 1,
     currentPage + 2,
   ];
-}
-
-export default function Footer() {
-  const { total_pages, currentPage, setCurrentPage } = useContext(AppContext);
-
-  if (total_pages > 0) {
-    const pages = calculateRange(currentPage, total_pages);
-    return (
-      <footer className={styles.footer}>
-        <ul className={styles.list}>
-          {pages.map((p) =>
-            p == currentPage ? (
-              <li className={styles.item} key={p}>
-                <div className="circle">
-                  <div className="inner-circle">{p}</div>
-                </div>
-              </li>
-            ) : (
-              <li
-                className={styles.page_number}
-                key={p}
-                onClick={() => setCurrentPage(p)}
-              >
-                <a>{p}</a>
-              </li>
-            )
-          )}
-        </ul>
-      </footer>
-    );
-  }
-
-  return <footer className={styles.footer}></footer>;
 }

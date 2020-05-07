@@ -1,10 +1,17 @@
 import styles from './card.module.css';
+import { GENRES, IMAGE_URL } from './constants';
 
-const IMAGE_URL = 'https://image.tmdb.org/t/p/w400';
 const a = 2;
 
 export default function Card({ movie }) {
-  const { poster_path, title, popularity, overview, release_date } = movie;
+  const {
+    poster_path,
+    title,
+    popularity,
+    overview,
+    release_date,
+    genre_ids,
+  } = movie;
 
   const image = poster_path ? `${IMAGE_URL}${poster_path}` : '';
 
@@ -30,9 +37,14 @@ export default function Card({ movie }) {
         <section>{overview}</section>
         <footer>
           <ul className={styles.pill_list}>
-            <li className={styles.pill}>Ação</li>
+            {genre_ids.map((id) => (
+              <li key={id} className={styles.pill}>
+                {GENRES[id]}
+              </li>
+            ))}
+            {/* <li className={styles.pill}>Ação</li>
             <li className={styles.pill}>Aventura</li>
-            <li className={styles.pill}>Fantasia</li>
+            <li className={styles.pill}>Fantasia</li> */}
           </ul>
         </footer>
       </div>
@@ -45,9 +57,5 @@ function Text({ text }) {
   if (text.length > 14) {
     className = styles.small_font;
   }
-  return (
-    <div className={className} style={{ lineHeight: '16px' }}>
-      {text}
-    </div>
-  );
+  return <div className={className}>{text}</div>;
 }

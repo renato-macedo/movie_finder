@@ -43,10 +43,8 @@
 
 .title_container {
   display: flex;
+  position: relative;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
   left: 10px;
 }
 .title_container a {
@@ -55,7 +53,7 @@
 }
 .release {
   position: relative;
-  top: 43px;
+  top: 30px;
   font-size: 1rem;
   color: gray;
 }
@@ -66,11 +64,11 @@
 }
 
 .font {
-  font-size: 3vw;
+  font-size: 2rem;
 }
 
 .small_font {
-  font-size: 2vw;
+  font-size: 1.5rem;
 }
 
 .circle {
@@ -98,6 +96,7 @@
 }
 .pill_list {
   display: flex;
+  flex-wrap: wrap;
   margin-left: 10px;
 }
 
@@ -127,24 +126,20 @@
     height: 3rem;
   }
 
-  .title_container {
-    position: relative;
-    top: 36px;
-    line-height: 48px;
-    left: 10px;
-  }
-
-  /* .font {
-    font-size: 3vw;
+  .font {
+    font-size: 2rem;
   }
 
   .small_font {
-    font-size: 2rem;
-  } */
-  .title {
+    font-size: 1.3rem;
   }
-  .release {
+  .title_container {
+    position: relative;
+    top: -1px;
+    line-height: 20px;
+    left: 10px;
   }
+
   .circle {
     position: relative;
     bottom: -2rem;
