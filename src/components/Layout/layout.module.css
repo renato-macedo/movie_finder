@@ -4,11 +4,25 @@
   flex-direction: column;
   align-items: center;
   color: var(--secondary-blue);
-  padding: 1.5rem;
-  font-size: 1.5rem;
+  padding: 1rem;
+  font-size: 2rem;
 }
 
 .container {
   padding: 0 2rem;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@media only screen and (min-width: 780px) {
+  .header {
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .container {
+    width: 70%;
+  }
 }

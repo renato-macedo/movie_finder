@@ -38,7 +38,7 @@ export default function Footer() {
         <ul className={styles.list}>
           {pages.map((p) =>
             p == currentPage ? (
-              <li key={p}>
+              <li className={styles.item} key={p}>
                 <div className="circle">
                   <div className="inner-circle">{p}</div>
                 </div>

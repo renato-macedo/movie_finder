@@ -18,6 +18,8 @@
   align-items: center;
   color: var(--secondary-blue);
   padding: 10px;
+  position: relative;
+  bottom: 4px;
 }
 
 .page_number a {
@@ -28,4 +30,9 @@
   /* background-color: rgba(0, 230, 238, 0.8);
   border-radius: 50%; */
   text-decoration: underline;
+}
+
+.item {
+  width: 2rem;
+  height: 2rem;
 }

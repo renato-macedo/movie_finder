@@ -4,12 +4,9 @@ import Layout, { siteTitle } from '../components/Layout';
 import Searchbar from '../components/Searchbar';
 import Footer from '../components/Footer';
 import CardList from '../components/CardList';
-import { useState } from 'react';
 import Provider from '../context/state';
 
 export default function Home() {
-  const [movies, setMovies] = useState([]);
-
   return (
     <Provider>
       <Layout>
@@ -23,5 +20,3 @@ export default function Home() {
     </Provider>
   );
 }
-
-// export async function getStaticProps()

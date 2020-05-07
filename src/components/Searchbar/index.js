@@ -13,7 +13,7 @@ export default function Searchbar() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(text);
+
     if (text) {
       searchMovies(text);
     }

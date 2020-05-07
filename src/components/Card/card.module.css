@@ -1,7 +1,157 @@
 .card {
-  margin: 0 auto;
-  height: 15rem;
+  display: flex;
+
   width: 100%;
-  border: 1px solid black;
   margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.image {
+  display: flex;
+  flex: 1;
+}
+.card img {
+  width: 100%;
+  height: auto;
+  min-width: 14rem;
+  max-width: 23rem;
+}
+
+.card a {
+  width: 100%;
+  text-decoration: none;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.info_alternate {
+  display: flex;
+}
+
+.info header {
+  background-color: var(--primary-blue);
+  color: var(--secondary-blue);
+  display: flex;
+  padding: 0px 5px 5px 5px;
+
+  align-items: center;
+  line-height: 28px;
+}
+
+.title_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  left: 10px;
+}
+.title_container a {
+  position: relative;
+  top: 20px;
+}
+.release {
+  position: relative;
+  top: 43px;
+  font-size: 1rem;
+  color: gray;
+}
+
+.title {
+  position: relative;
+  top: 30px;
+}
+
+.font {
+  font-size: 3vw;
+}
+
+.small_font {
+  font-size: 2vw;
+}
+
+.circle {
+  position: relative;
+  bottom: -2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.info section {
+  padding: 35px 5px 5px 15px;
+  background-color: var(--primary-gray);
+  flex: 1;
+  font-weight: bold;
+  color: rgb(104, 104, 104);
+}
+
+.info footer {
+  display: flex;
+
+  align-items: center;
+  background-color: var(--primary-gray);
+
+  height: 4rem;
+}
+.pill_list {
+  display: flex;
+  margin-left: 10px;
+}
+
+.pill {
+  color: var(--primary-blue);
+  border: 1px solid var(--primary-blue);
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 3px 6px;
+  margin: 0 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .card {
+    flex-direction: column;
+  }
+
+  .image {
+    width: 100%;
+    display: flex;
+  }
+  .card img {
+    width: 100%;
+  }
+
+  .info header {
+    height: 3rem;
+  }
+
+  .title_container {
+    position: relative;
+    top: 36px;
+    line-height: 48px;
+    left: 10px;
+  }
+
+  /* .font {
+    font-size: 3vw;
+  }
+
+  .small_font {
+    font-size: 2rem;
+  } */
+  .title {
+  }
+  .release {
+  }
+  .circle {
+    position: relative;
+    bottom: -2rem;
+    width: 4rem;
+    height: 4rem;
+  }
+  .info section {
+    padding: 40px 5px 5px 5px;
+  }
 }
