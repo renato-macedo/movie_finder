@@ -17,7 +17,8 @@ function MovieState(props) {
     movies: [],
     movie: {},
     loading: false,
-    total_pages: 0,
+    api_total_pages: 0,
+    app_total_pages: 0,
     currentPage: 0,
     query: '',
   };
@@ -29,13 +30,19 @@ function MovieState(props) {
     setLoading();
 
     try {
-      const res = await axios.get(`/api/movies?search=${text}&page=1`); // always first page
+      const res = await axios.get(`/api/search?q=${text}&page=1`); // always first page
 
       console.log(res.data);
-      const { results, total_pages } = res.data;
+      const { results, api_total_pages, app_total_pages } = res.data;
+      console.log(text);
       dispatch({
         type: SEARCH_MOVIES,
-        payload: { movies: results, total_pages, query: text },
+        payload: {
+          movies: results,
+          api_total_pages,
+          app_total_pages,
+          query: text,
+        },
       });
     } catch (error) {
       dispatch({
@@ -67,8 +74,9 @@ function MovieState(props) {
 
   async function setCurrentPage(p) {
     try {
+      console.log(state);
       const res = await axios.get(
-        `/api/movies?search=${state.query}&page=${p}`
+        `/api/search?q=${state.query}&page=${p}&api_total_pages=${state.api_total_pages}`
       );
       const { results } = res.data;
       dispatch({
@@ -100,12 +108,13 @@ function MovieState(props) {
         movies: state.movies,
         movie: state.movie,
         loading: state.loading,
+        api_total_pages: state.api_total_pages,
+        total_pages: state.app_total_pages,
+        currentPage: state.currentPage,
         searchMovies,
         getMovie,
         setCurrentPage,
         clear,
-        total_pages: state.total_pages,
-        currentPage: state.currentPage,
       }}
     >
       {props.children}

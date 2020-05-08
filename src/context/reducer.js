@@ -13,7 +13,8 @@ export default function (state, action) {
       return {
         ...state,
         movies: action.payload.movies,
-        total_pages: action.payload.total_pages,
+        api_total_pages: action.payload.api_total_pages,
+        app_total_pages: action.payload.app_total_pages,
         currentPage: 1,
         query: action.payload.query,
         loading: false,

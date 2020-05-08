@@ -50,6 +50,7 @@
 .title_container a {
   position: relative;
   top: 20px;
+  color: var(--secondary-blue);
 }
 .release {
   position: relative;

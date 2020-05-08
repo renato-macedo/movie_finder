@@ -25,11 +25,14 @@ export default function CardList() {
 
   return (
     <ul className={styles.cardlist}>
-      {movies.map((movie) => (
-        <li key={movie.id}>
-          <Card movie={movie} />
-        </li>
-      ))}
+      {movies.map(
+        (movie) =>
+          movie && (
+            <li key={movie.id}>
+              <Card movie={movie} />
+            </li>
+          )
+      )}
     </ul>
   );
 }

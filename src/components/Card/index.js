@@ -1,6 +1,6 @@
 import styles from './card.module.css';
 import { GENRES, IMAGE_URL } from './constants';
-
+import Link from 'next/link';
 const a = 2;
 
 export default function Card({ movie }) {
@@ -11,6 +11,7 @@ export default function Card({ movie }) {
     overview,
     release_date,
     genre_ids,
+    id,
   } = movie;
 
   const image = poster_path ? `${IMAGE_URL}${poster_path}` : '';
@@ -28,9 +29,11 @@ export default function Card({ movie }) {
             </div>
           </div>
           <div className={styles.title_container}>
-            <a href="/">
-              <Text text={title} />
-            </a>
+            <Link href="/movies/[id]" as={`/movies/${id}`}>
+              <a>
+                <Text text={title} />
+              </a>
+            </Link>
             <div className={styles.release}>{release_date}</div>
           </div>
         </header>
