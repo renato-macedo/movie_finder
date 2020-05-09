@@ -17,10 +17,10 @@
 }
 
 @media only screen and (min-width: 780px) {
-  .header {
+  /* .header {
     width: 70%;
     margin: 0 auto;
-  }
+  } */
 
   .container {
     width: 70%;

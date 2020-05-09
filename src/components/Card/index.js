@@ -1,7 +1,6 @@
 import styles from './card.module.css';
 import { GENRES, IMAGE_URL } from './constants';
 import Link from 'next/link';
-const a = 2;
 
 export default function Card({ movie }) {
   const {
@@ -19,7 +18,10 @@ export default function Card({ movie }) {
   return (
     <div className={styles.card}>
       <div className={styles.image}>
-        <img src={image ? image : '/images/notfound.jpg'} alt={title} />
+        <img
+          src={image ? image : '/images/notfound.jpg'}
+          alt={`${title} poster`}
+        />
       </div>
       <div className={styles.info}>
         <header>
@@ -45,9 +47,6 @@ export default function Card({ movie }) {
                 {GENRES[id]}
               </li>
             ))}
-            {/* <li className={styles.pill}>Ação</li>
-            <li className={styles.pill}>Aventura</li>
-            <li className={styles.pill}>Fantasia</li> */}
           </ul>
         </footer>
       </div>

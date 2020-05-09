@@ -9,7 +9,6 @@ export default async (req, res) => {
 
   if (id) {
     const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos`;
-    console.log(url);
     const { data } = await axios.get(url);
 
     res.statusCode = 200;

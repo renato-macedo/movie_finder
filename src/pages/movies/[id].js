@@ -1,8 +1,11 @@
 import Layout from '../../components/Layout';
-import Info from '../../components/Info';
+import Detail from '../../components/Detail';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Head from 'next/head';
+
+import styles from '../../components/Detail/detail.module.css';
 
 export default function Movie() {
   const { query } = useRouter();
@@ -31,5 +34,12 @@ export default function Movie() {
     );
   }
 
-  return <Layout>{movie ? <Info movie={movie} /> : <h3>Not Found</h3>}</Layout>;
+  return (
+    <Layout clazz={styles.container}>
+      <Head>
+        <title>{movie ? movie.title : ''}</title>
+      </Head>
+      {movie ? <Detail movie={movie} /> : <h3>Not Found</h3>}
+    </Layout>
+  );
 }

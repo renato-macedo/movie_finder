@@ -13,7 +13,9 @@ h1 {
 svg {
   width: 50%;
 }
-
+a {
+  text-decoration: none;
+}
 :root {
   --primary-blue: #116193;
   --primary-gray: #ebebeb;
