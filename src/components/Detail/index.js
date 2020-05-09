@@ -31,7 +31,9 @@ export default function Detail({ movie }) {
             <div title="Sinopse" className={styles.sub}>
               Sinopse
             </div>
-            <div className={styles.overview}>{overview}</div>
+            <div className={styles.overview}>
+              {overview ? overview : 'Nenhuma sinopse disponível.'}
+            </div>
           </section>
           <section>
             <div title="Informações" className={styles.sub}>

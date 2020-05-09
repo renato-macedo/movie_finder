@@ -32,9 +32,8 @@ function MovieState(props) {
     try {
       const res = await axios.get(`/api/search?q=${text}&page=1`); // always first page
 
-      console.log(res.data);
       const { results, api_total_pages, app_total_pages } = res.data;
-      console.log(text);
+
       dispatch({
         type: SEARCH_MOVIES,
         payload: {
@@ -57,7 +56,7 @@ function MovieState(props) {
     setLoading();
     try {
       const res = await axios.get(`movies/${id}`);
-      console.log(res.data);
+
       dispatch({
         type: GET_MOVIE,
         payload: res.data,
@@ -74,7 +73,6 @@ function MovieState(props) {
 
   async function setCurrentPage(p) {
     try {
-      console.log(state);
       const res = await axios.get(
         `/api/search?q=${state.query}&page=${p}&api_total_pages=${state.api_total_pages}`
       );
@@ -85,10 +83,6 @@ function MovieState(props) {
       });
     } catch (error) {
       console.log(error);
-      // dispatch({
-      //   type: SEARCH_MOVIES,
-      //   payload: [],
-      // });
     }
   }
   function clear() {

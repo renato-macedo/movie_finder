@@ -17,12 +17,11 @@ export default function Card({ movie }) {
 
   return (
     <div className={styles.card}>
-      <div className={styles.image}>
-        <img
-          src={image ? image : '/images/notfound.jpg'}
-          alt={`${title} poster`}
-        />
-      </div>
+      {image && (
+        <div className={styles.image}>
+          <img src={image} alt={`${title} poster`} />
+        </div>
+      )}
       <div className={styles.info}>
         <header>
           <div className={styles.circle}>

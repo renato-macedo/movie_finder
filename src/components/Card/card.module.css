@@ -8,7 +8,6 @@
 
 .image {
   display: flex;
-  flex: 1;
 }
 .card img {
   width: 100%;
@@ -25,6 +24,7 @@
 .info {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .info_alternate {

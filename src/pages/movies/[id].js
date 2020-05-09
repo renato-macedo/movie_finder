@@ -17,7 +17,6 @@ export default function Movie() {
   useEffect(() => {
     if (id) {
       async function fetchMovie() {
-        console.log({ id });
         const { data } = await axios.get(`/api/movies/${id}`);
         setMovie(data);
         setLoading(false);
