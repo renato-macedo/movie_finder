@@ -1,5 +1,6 @@
 import Layout from '../../components/Layout';
 import Detail from '../../components/Detail';
+import Loading from '../../components/Loading';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -27,8 +28,8 @@ export default function Movie() {
 
   if (loading) {
     return (
-      <Layout>
-        <h4>Loading</h4>
+      <Layout clazz={styles.container}>
+        <Loading />
       </Layout>
     );
   }
