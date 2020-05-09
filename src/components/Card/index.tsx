@@ -1,8 +1,9 @@
 import styles from './card.module.css';
 import { GENRES, IMAGE_URL } from './constants';
 import Link from 'next/link';
+import { Movie } from '../../context/types';
 
-export default function Card({ movie }) {
+export default function Card({ movie }: { movie: Movie }) {
   const {
     poster_path,
     title,
@@ -53,7 +54,7 @@ export default function Card({ movie }) {
   );
 }
 
-function Text({ text }) {
+function Text({ text }: { text: string }) {
   let className = styles.font;
   if (text.length > 14) {
     className = styles.small_font;

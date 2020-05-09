@@ -1,17 +1,26 @@
-import { useState, useContext } from 'react';
+import {
+  useState,
+  useContext,
+  ChangeEventHandler,
+  ChangeEvent,
+  FormEvent,
+} from 'react';
+
 import styles from './searchbar.module.css';
 import AppContext from '../../context/context';
+
 export default function Searchbar() {
   const [text, setText] = useState('');
   const { searchMovies, clear } = useContext(AppContext);
 
-  function handleChange(e) {
-    if (!e.target.value) {
+  function handleChange(e: FormEvent<HTMLInputElement>) {
+    if (!e.currentTarget.value) {
       clear();
     }
-    setText(e.target.value);
+    const text = e.currentTarget.value ? e.currentTarget.value : '';
+    setText(text);
   }
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
     if (text) {

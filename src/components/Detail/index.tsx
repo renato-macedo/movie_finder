@@ -1,8 +1,9 @@
 import styles from './detail.module.css';
+import { MovieDetail } from '../../context/types';
 
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w400';
 
-export default function Detail({ movie }) {
+export default function Detail({ movie }: { movie: MovieDetail }) {
   const {
     poster_path,
     title,
@@ -102,9 +103,7 @@ export default function Detail({ movie }) {
               <li key={vid.id}>
                 <iframe
                   src={`https://www.youtube.com/embed/${vid.key}`}
-                  frameborder="0"
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
                 ></iframe>
               </li>
             ))}

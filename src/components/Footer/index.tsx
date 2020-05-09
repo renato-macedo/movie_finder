@@ -5,19 +5,21 @@ import styles from './footer.module.css';
 import AppContext from '../../context/context';
 
 export default function Footer() {
-  const { total_pages, currentPage, setCurrentPage } = useContext(AppContext);
+  const { app_total_pages, currentPage, setCurrentPage } = useContext(
+    AppContext
+  );
 
-  function selectPage(p) {
+  function selectPage(p: number) {
     setCurrentPage(p);
     window.scrollTo(0, 0);
   }
 
-  if (total_pages > 0) {
-    const pages = calculateRange(currentPage, total_pages);
+  if (app_total_pages > 0) {
+    const pages = calculateRange(currentPage, app_total_pages);
     return (
       <footer className={styles.footer}>
         <ul className={styles.list}>
-          {pages.map((p) =>
+          {pages.map((p: number) =>
             p == currentPage ? (
               <li className={styles.item} key={p}>
                 <div className="circle">
@@ -42,7 +44,7 @@ export default function Footer() {
   return <footer className={styles.footer}></footer>;
 }
 
-function calculateRange(currentPage, limit) {
+function calculateRange(currentPage: number, limit: number) {
   if (limit <= 5) {
     let range = [];
     for (let i = 1; i <= limit; i++) {

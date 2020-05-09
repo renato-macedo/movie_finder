@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+import { NextApiRequest, NextApiResponse } from 'next';
+
 const API_KEY = '1bdce766d954223068eacafe6c05c383';
 
-export default async (req, res) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader('Content-Type', 'application/json');
 
   const { id } = req.query;

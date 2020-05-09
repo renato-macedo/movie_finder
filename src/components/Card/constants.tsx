@@ -1,4 +1,4 @@
-export const GENRES = {
+export const GENRES: { readonly [genreID: string]: string } = {
   '12': 'aventura',
   '14': 'fantasia',
   '16': 'animação',
@@ -18,6 +18,6 @@ export const GENRES = {
   '10751': 'família',
   '10752': 'guerra',
   '10770': 'cinema TV',
-};
+} as const;
 
 export const IMAGE_URL = 'https://image.tmdb.org/t/p/w400';

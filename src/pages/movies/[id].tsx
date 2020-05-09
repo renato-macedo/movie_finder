@@ -3,26 +3,33 @@ import Detail from '../../components/Detail';
 import Loading from '../../components/Loading';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import Head from 'next/head';
 
 import styles from '../../components/Detail/detail.module.css';
+import { MovieDetail } from '../../context/types';
 
 export default function Movie() {
   const { query } = useRouter();
   const { id } = query;
 
-  const [movie, setMovie] = useState();
+  const [movie, setMovie] = useState<MovieDetail>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (id) {
-      async function fetchMovie() {
-        const { data } = await axios.get(`/api/movies/${id}`);
-        setMovie(data);
-        setLoading(false);
-      }
-      fetchMovie();
+      axios
+        .get(`/api/movies/${id}`)
+        .then(({ data }: AxiosResponse<MovieDetail>) => {
+          setMovie(data);
+          setLoading(false);
+        });
+      // async function fetchMovie() {
+      //   const { data } = await axios.get(`/api/movies/${id}`);
+      //   setMovie(data);
+      //   setLoading(false);
+      // }
+      // fetchMovie();
     }
   }, [id]);
 

@@ -1,8 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from './layout.module.css';
+import { PropsWithChildren } from 'react';
 export const siteTitle = 'Movie Finder';
-export default function Layout({ children, home, clazz }) {
+export default function Layout({
+  children,
+  clazz,
+}: PropsWithChildren<{ clazz?: string }>) {
   return (
     <>
       <Head>

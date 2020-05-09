@@ -1,21 +1,20 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, PropsWithChildren } from 'react';
 import Context from './context';
 import Reducer from './reducer';
 import axios from 'axios';
 
-import {
-  SEARCH_MOVIES,
-  SET_LOADING,
-  GET_MOVIE,
-  MOVIE_NOT_FOUND,
-  SET_CURRENT_PAGE,
-  CLEAR,
-} from './types';
+import { Actions, AppState, Movie } from './types';
 
-function MovieState(props) {
-  const initialState = {
+interface SearchResult {
+  results: Movie[];
+  api_total_pages: number;
+  app_total_pages: number;
+}
+
+function MovieState(props: PropsWithChildren<{}>) {
+  const initialState: AppState = {
     movies: [],
-    movie: {},
+    movie: undefined,
     loading: false,
     api_total_pages: 0,
     app_total_pages: 0,
@@ -26,7 +25,7 @@ function MovieState(props) {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
   // Search Movies
-  async function searchMovies(text) {
+  async function searchMovies(text: string) {
     setLoading();
 
     try {
@@ -35,7 +34,7 @@ function MovieState(props) {
       const { results, api_total_pages, app_total_pages } = res.data;
 
       dispatch({
-        type: SEARCH_MOVIES,
+        type: Actions.SEARCH_MOVIES,
         payload: {
           movies: results,
           api_total_pages,
@@ -44,42 +43,45 @@ function MovieState(props) {
         },
       });
     } catch (error) {
-      dispatch({
-        type: SEARCH_MOVIES,
-        payload: [],
-      });
+      // dispatch({
+      //   type: SEARCH_MOVIES,
+      //   payload: [],
+      // });
     }
   }
 
   // Get Movie
-  async function getMovie(id) {
+  async function getMovie(id: number) {
     setLoading();
     try {
       const res = await axios.get(`movies/${id}`);
 
       dispatch({
-        type: GET_MOVIE,
+        type: Actions.GET_MOVIE,
         payload: res.data,
       });
     } catch (error) {
       dispatch({
-        type: MOVIE_NOT_FOUND,
-        payload: { vote_average: '-', imdb_id: '' },
+        type: Actions.MOVIE_NOT_FOUND,
+        payload: state,
       });
     }
 
     // setAlert(null);
   }
 
-  async function setCurrentPage(p) {
+  async function setCurrentPage(p: number) {
     try {
       const res = await axios.get(
         `/api/search?q=${state.query}&page=${p}&api_total_pages=${state.api_total_pages}`
       );
-      const { results } = res.data;
+      const { results }: SearchResult = res.data;
       dispatch({
-        type: SET_CURRENT_PAGE,
-        payload: { movies: results, currentPage: p },
+        type: Actions.SET_CURRENT_PAGE,
+        payload: {
+          movies: results,
+          currentPage: p,
+        },
       });
     } catch (error) {
       console.log(error);
@@ -87,13 +89,18 @@ function MovieState(props) {
   }
   function clear() {
     dispatch({
-      type: CLEAR,
+      type: Actions.CLEAR,
       payload: initialState,
     });
   }
   // Set Loading
   function setLoading() {
-    return dispatch({ type: SET_LOADING });
+    dispatch({
+      type: Actions.SET_LOADING,
+      payload: {
+        movies: state.movies,
+      },
+    });
   }
 
   return (
@@ -103,12 +110,14 @@ function MovieState(props) {
         movie: state.movie,
         loading: state.loading,
         api_total_pages: state.api_total_pages,
-        total_pages: state.app_total_pages,
+        app_total_pages: state.app_total_pages,
         currentPage: state.currentPage,
+        query: state.query,
         searchMovies,
         getMovie,
         setCurrentPage,
         clear,
+        setLoading,
       }}
     >
       {props.children}
