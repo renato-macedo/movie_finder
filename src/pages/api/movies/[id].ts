@@ -1,22 +1,19 @@
-import axios from 'axios';
-
 import { NextApiRequest, NextApiResponse } from 'next';
-
-const API_KEY = '1bdce766d954223068eacafe6c05c383';
+import { getMovieURL } from '../../../helpers/urls';
+import { getFirstOcurrence, fetchData } from '../../../helpers/api';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  res.setHeader('Content-Type', 'application/json');
+  let { id } = req.query;
 
-  const { id } = req.query;
+  if (!id) return res.status(400).json({ error: 'missing movie id' });
 
-  if (id) {
-    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=videos`;
-    const { data } = await axios.get(url);
+  id = getFirstOcurrence(id);
+  const URL = getMovieURL(id);
 
-    res.statusCode = 200;
-    return res.end(JSON.stringify(data));
+  try {
+    const data = await fetchData(URL);
+    return res.json(data);
+  } catch (error) {
+    return res.status(500).json({ error: 'server error' });
   }
-
-  res.statusCode = 400;
-  return res.end(JSON.stringify({ error: 'missing movie id' }));
 };

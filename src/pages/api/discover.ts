@@ -1,35 +1,35 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-
 import { getFirstOcurrence, fetchData } from '../../helpers/api';
 import {
   mapToApiPage,
-  APP_RESULTS_PER_PAGES,
-  API_RESULTS_PER_PAGE,
   mapResults,
+  APP_RESULTS_PER_PAGES,
 } from '../../helpers/pagination';
-import { getSearchURL } from '../../helpers/urls';
+import { getFindGenreURL } from '../../helpers/urls';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  let { q: query, page = '1', api_total_pages } = req.query;
+  res.setHeader('Content-Type', 'application/json');
 
-  if (!query) return res.status(400).json({ error: 'missing search text' });
+  let { genre, page = '1', api_total_pages } = req.query;
 
-  query = getFirstOcurrence(query);
+  if (!genre) return res.status(400).json({ error: 'missing genre id' });
+
+  genre = getFirstOcurrence(genre);
 
   page = getFirstOcurrence(page);
 
   api_total_pages = getFirstOcurrence(api_total_pages);
 
+  let apiPage = mapToApiPage({
+    appPage: parseInt(page),
+    apiResultsPerPage: 20,
+    apiTotalPages: parseInt(api_total_pages),
+  });
+
+  const URL = getFindGenreURL(genre, apiPage);
+
   try {
-    const apiPage = mapToApiPage({
-      appPage: parseInt(page),
-      apiResultsPerPage: API_RESULTS_PER_PAGE,
-      apiTotalPages: parseInt(api_total_pages),
-    });
-
-    const URL = getSearchURL(query, apiPage);
-    let { results, total_pages, total_results } = await fetchData(URL);
-
+    const { results, total_pages, total_results } = await fetchData(URL);
     const appTotalPages = Math.ceil(total_results / APP_RESULTS_PER_PAGES);
 
     const data = mapResults(results, parseInt(page));
@@ -40,7 +40,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       app_total_pages: appTotalPages, // used for app pagination
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error: 'server error' });
   }
 };
