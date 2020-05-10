@@ -57,6 +57,7 @@ export default function Searchbar() {
         <div className={styles.searchbar}>
           <input
             className={styles.input}
+            id="search"
             placeholder="Buscar"
             type="text"
             value={text}

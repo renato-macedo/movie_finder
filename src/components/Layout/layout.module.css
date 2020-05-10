@@ -3,11 +3,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: var(--secondary-blue);
   padding: 1rem;
   font-size: 2rem;
 }
 
+.header a {
+  color: var(--secondary-blue);
+}
 .container {
   padding: 0 2rem;
   margin: 0 auto;

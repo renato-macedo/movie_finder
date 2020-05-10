@@ -19,11 +19,11 @@ export default function Layout({
           rel="stylesheet"
         />
       </Head>
-      <Link href="/">
-        <a>
-          <header className={styles.header}>Movies</header>
-        </a>
-      </Link>
+      <header className={styles.header}>
+        <Link href="/">
+          <a>Movies</a>
+        </Link>
+      </header>
       <main className={clazz ? clazz : styles.container}>{children}</main>
     </>
   );
