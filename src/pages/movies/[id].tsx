@@ -10,8 +10,8 @@ import styles from '../../components/Detail/detail.module.css';
 import { MovieDetail } from '../../context/types';
 
 export default function Movie() {
-  const { query } = useRouter();
-  const { id } = query;
+  const router = useRouter();
+  const { id } = router.query;
 
   const [movie, setMovie] = useState<MovieDetail>();
   const [loading, setLoading] = useState(true);
@@ -43,7 +43,27 @@ export default function Movie() {
       <Head>
         <title>{movie ? movie.title : ''}</title>
       </Head>
-      {movie ? <Detail movie={movie} /> : <h3>Not Found</h3>}
+      {movie ? (
+        <Detail movie={movie} />
+      ) : (
+        <>
+          <h1 style={{ margin: '8rem auto' }}>Filme não encontrado</h1>
+          <button
+            style={{
+              border: '1px solid white',
+              width: '8rem',
+              margin: '0 auto',
+              backgroundColor: 'var(--primary-blue)',
+              textAlign: 'center',
+              fontSize: '1.5rem',
+              color: 'var(--secondary-blue)',
+            }}
+            onClick={() => router.back()}
+          >
+            Voltar
+          </button>
+        </>
+      )}
     </Layout>
   );
 }

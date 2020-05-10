@@ -34,7 +34,7 @@ function MovieState(props: PropsWithChildren<{}>) {
       dispatch({
         type: Actions.SEARCH_MOVIES_ERROR,
         payload: {
-          movies: state.movies,
+          movies: [],
           error: error.response.data.error,
         },
       });
@@ -50,7 +50,7 @@ function MovieState(props: PropsWithChildren<{}>) {
       dispatch({
         type: Actions.SEARCH_MOVIES_ERROR,
         payload: {
-          movies: state.movies,
+          movies: [],
           error: error.response.data.error,
         },
       });

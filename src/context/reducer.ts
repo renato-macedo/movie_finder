@@ -88,6 +88,13 @@ const reducer: Reducer<AppState, Action> = (state, action): AppState => {
       return {
         ...state,
         error: action.payload.error,
+        movies: action.payload.movies,
+        api_total_pages: 0,
+        app_total_pages: 0,
+        currentPage: 0,
+        query: '',
+        loading: false,
+        genreID: '',
       };
     default:
       return state;
