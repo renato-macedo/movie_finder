@@ -29,13 +29,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const URL = getFindGenreURL(genre, apiPage);
 
   try {
-    const { results, total_pages, total_results } = await fetchData(URL);
+    let { results, total_pages, total_results } = await fetchData(URL);
+
+    if (results.length < 1)
+      return res.status(404).json({ error: 'Nenhum filme encontrado.' });
+
     const appTotalPages = Math.ceil(total_results / APP_RESULTS_PER_PAGES);
 
-    const data = mapResults(results, parseInt(page));
+    const newResults = mapResults(results, parseInt(page));
 
     return res.json({
-      results: data,
+      results: newResults,
       api_total_pages: total_pages, // remember total pages for mapping in the next requests
       app_total_pages: appTotalPages, // used for app pagination
     });

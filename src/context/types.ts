@@ -48,6 +48,7 @@ export interface AppState {
   query: string;
   searchType: string;
   genreID?: string;
+  error?: string;
 }
 
 export interface AppContext extends AppState {

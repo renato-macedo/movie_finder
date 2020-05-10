@@ -30,9 +30,13 @@ function MovieState(props: PropsWithChildren<{}>) {
       const res = await axios.get(`/api/search?q=${text}&page=1`); // always first page
       setMovies(res.data, text);
     } catch (error) {
+      console.log({ error: error.response.data });
       dispatch({
         type: Actions.SEARCH_MOVIES_ERROR,
-        payload: initialState,
+        payload: {
+          movies: state.movies,
+          error: error.response.data.error,
+        },
       });
     }
   }
@@ -45,7 +49,10 @@ function MovieState(props: PropsWithChildren<{}>) {
     } catch (error) {
       dispatch({
         type: Actions.SEARCH_MOVIES_ERROR,
-        payload: initialState,
+        payload: {
+          movies: state.movies,
+          error: error.response.data.error,
+        },
       });
     }
   }
@@ -78,7 +85,10 @@ function MovieState(props: PropsWithChildren<{}>) {
     } catch (error) {
       dispatch({
         type: Actions.MOVIE_NOT_FOUND,
-        payload: state,
+        payload: {
+          movies: state.movies,
+          error: error.response.data.error,
+        },
       });
     }
 
@@ -132,6 +142,8 @@ function MovieState(props: PropsWithChildren<{}>) {
       payload: initialState,
     });
   }
+
+  function setError(message: string) {}
   // Set Loading
   function setLoading() {
     dispatch({
@@ -153,6 +165,7 @@ function MovieState(props: PropsWithChildren<{}>) {
         currentPage: state.currentPage,
         searchType: state.searchType,
         query: state.query,
+        error: state.error,
         searchMovies,
         searchByGenre,
         getMovie,

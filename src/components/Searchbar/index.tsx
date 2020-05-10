@@ -73,23 +73,13 @@ export default function Searchbar() {
   );
 }
 
-interface Item {
-  key: string;
-  value: string;
-}
-
 function Dropdown({ onChange }: { onChange: (selected: string) => void }) {
-  const { searchType, setSearchType } = useContext(AppContext);
+  const { searchType } = useContext(AppContext);
   const [closed, setClosed] = useState(true);
-  // const [selected, setSelected] = useState(
-  //   searchType == 'genero' ? 'Gênero' : 'Filme'
-  // );
 
   function selectAndClose(type: string) {
-    // setSelected(type);
-    onChange(type);
-    //setSearchType(type);
     close();
+    onChange(type);
   }
   function open() {
     setClosed(false);

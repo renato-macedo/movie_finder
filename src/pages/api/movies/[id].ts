@@ -12,7 +12,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const data = await fetchData(URL);
-    return res.json(data);
+    if (data) {
+      return res.json(data);
+    }
+
+    return res.status(404).json({ error: 'Filme não encontrado' });
   } catch (error) {
     return res.status(500).json({ error: 'server error' });
   }

@@ -23,13 +23,10 @@ export default function Movie() {
         .then(({ data }: AxiosResponse<MovieDetail>) => {
           setMovie(data);
           setLoading(false);
+        })
+        .catch((e) => {
+          setLoading(false);
         });
-      // async function fetchMovie() {
-      //   const { data } = await axios.get(`/api/movies/${id}`);
-      //   setMovie(data);
-      //   setLoading(false);
-      // }
-      // fetchMovie();
     }
   }, [id]);
 

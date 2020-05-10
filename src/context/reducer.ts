@@ -12,6 +12,7 @@ export interface Action {
     currentPage?: number;
     genreID?: string;
     movie?: MovieDetail;
+    error?: string;
   };
 }
 
@@ -81,6 +82,12 @@ const reducer: Reducer<AppState, Action> = (state, action): AppState => {
         ...state,
         movie: action.payload.movie,
         loading: false,
+      };
+    case Actions.SEARCH_MOVIES_ERROR:
+      console.log(action.payload);
+      return {
+        ...state,
+        error: action.payload.error,
       };
     default:
       return state;
