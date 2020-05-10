@@ -84,7 +84,6 @@ const reducer: Reducer<AppState, Action> = (state, action): AppState => {
         loading: false,
       };
     case Actions.SEARCH_MOVIES_ERROR:
-      console.log(action.payload);
       return {
         ...state,
         error: action.payload.error,

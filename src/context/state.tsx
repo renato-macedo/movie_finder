@@ -30,7 +30,6 @@ function MovieState(props: PropsWithChildren<{}>) {
       const res = await axios.get(`/api/search?q=${text}&page=1`); // always first page
       setMovies(res.data, text);
     } catch (error) {
-      console.log({ error: error.response.data });
       dispatch({
         type: Actions.SEARCH_MOVIES_ERROR,
         payload: {
@@ -117,7 +116,13 @@ function MovieState(props: PropsWithChildren<{}>) {
         },
       });
     } catch (error) {
-      console.log(error);
+      dispatch({
+        type: Actions.SEARCH_MOVIES_ERROR,
+        payload: {
+          movies: [],
+          error: error.response.data.error,
+        },
+      });
     }
   }
   function setSearchType(searchType: string, genreID?: string) {
