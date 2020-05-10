@@ -22,18 +22,19 @@ export function mapToApiPage({
   if (appPage == apiPage) {
     return '1';
   }
+
   const totalResults = apiTotalPages * apiResultsPerPage;
 
-  const appTotalPages = totalResults / APP_RESULTS_PER_PAGES;
+  const appTotalPages = Math.ceil(totalResults / APP_RESULTS_PER_PAGES);
 
   const pages = [];
   for (let i = 1; i <= appTotalPages; i++) {
     pages.push(i);
   }
 
-  let p = new Array(apiTotalPages);
+  // let p = new Array(apiTotalPages);
 
-  for (let i = 0; i < p.length; i++) {
+  for (let i = 0; i < apiTotalPages; i++) {
     let r = [];
 
     while (r.length < apiResultsPerPage / APP_RESULTS_PER_PAGES) {
@@ -77,7 +78,6 @@ export function groupResults(
 
 // just to prevent to much processing
 function memoizeFunction() {
-  console.log('ALOU');
   const memo: { [key: number]: number } = { 1: 1, 2: 2, 3: 3, 4: 4 };
   /* 
   f(1) = 1

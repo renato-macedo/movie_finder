@@ -43,9 +43,7 @@ export default function Detail({ movie }: { movie: MovieDetail }) {
             <ul className={styles.attribs}>
               <li className={styles.prop}>
                 <p title="Situação">Situação</p>
-                <p title={status == 'Released' ? 'Lançado' : status}>
-                  {status == 'Released' ? 'Lançado' : status}
-                </p>
+                <p title={translateStatus(status)}>{translateStatus(status)}</p>
               </li>
               <li className={styles.prop}>
                 <p title="Idioma">Idioma</p>
@@ -112,4 +110,17 @@ export default function Detail({ movie }: { movie: MovieDetail }) {
       )}
     </div>
   );
+}
+
+function translateStatus(status: string) {
+  switch (status) {
+    case 'Released':
+      return 'Lançado';
+    case 'Planned':
+      return 'Previsto';
+    case 'Post Production':
+      return 'Pós-Produção';
+    default:
+      return status;
+  }
 }

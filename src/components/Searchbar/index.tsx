@@ -8,38 +8,117 @@ import {
 
 import styles from './searchbar.module.css';
 import AppContext from '../../context/context';
+import { getGenreID } from './genres';
 
 export default function Searchbar() {
   const [text, setText] = useState('');
-  const { searchMovies, clear } = useContext(AppContext);
+  //const [searchType, setSearchType] = useState('filme');
+  const {
+    searchMovies,
+    clear,
+    searchByGenre,
+    searchType,
+    setSearchType,
+  } = useContext(AppContext);
 
   function handleChange(e: FormEvent<HTMLInputElement>) {
     if (!e.currentTarget.value) {
       clear();
     }
     const text = e.currentTarget.value ? e.currentTarget.value : '';
+
     setText(text);
   }
+
+  function changeSearchType(type: string) {
+    setSearchType(type);
+  }
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
     if (text) {
-      searchMovies(text);
+      if (searchType == 'genero') {
+        let genreID = getGenreID(text.toLowerCase());
+        if (genreID) {
+          searchByGenre(genreID, text);
+        } else {
+          alert('Gênero inválido');
+        }
+      } else {
+        searchMovies(text);
+      }
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles.container}>
-      <input
-        className={styles.input}
-        placeholder="Search"
-        type="text"
-        value={text}
-        onChange={handleChange}
-      />
-      <button className={styles.btn} type="submit">
-        <img src="/images/search-icon.png" alt="search" />
-      </button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit} className={styles.container}>
+        <div className={styles.searchbar}>
+          <input
+            className={styles.input}
+            placeholder="Buscar"
+            type="text"
+            value={text}
+            onChange={handleChange}
+          />
+          <Dropdown onChange={changeSearchType} />
+
+          <button className={styles.btn} type="submit">
+            <img src="/images/search-icon.png" alt="search" />
+          </button>
+        </div>
+      </form>
+    </>
+  );
+}
+
+interface Item {
+  key: string;
+  value: string;
+}
+
+function Dropdown({ onChange }: { onChange: (selected: string) => void }) {
+  const { searchType, setSearchType } = useContext(AppContext);
+  const [closed, setClosed] = useState(true);
+  // const [selected, setSelected] = useState(
+  //   searchType == 'genero' ? 'Gênero' : 'Filme'
+  // );
+
+  function selectAndClose(type: string) {
+    // setSelected(type);
+    onChange(type);
+    //setSearchType(type);
+    close();
+  }
+  function open() {
+    setClosed(false);
+  }
+
+  function close() {
+    setClosed(true);
+  }
+
+  return (
+    <div className={styles.dropdown}>
+      <div className={styles.selected} onClick={open}>
+        Buscar por
+        <p>{searchType == 'genero' ? 'Gênero' : 'Filme'}</p>
+      </div>
+
+      {!closed && (
+        <ul className={styles.options_container}>
+          <li className={styles.option} onClick={() => selectAndClose('filme')}>
+            Filme
+          </li>
+          <li
+            className={styles.option}
+            onClick={() => selectAndClose('genero')}
+          >
+            Gênero
+          </li>
+        </ul>
+      )}
+    </div>
   );
 }

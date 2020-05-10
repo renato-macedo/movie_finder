@@ -2,6 +2,7 @@ import Card from '../Card';
 import styles from './cardlist.module.css';
 import AppContext from '../../context/context';
 import { useContext } from 'react';
+import { Movie } from '../../context/types';
 
 export default function CardList() {
   const { movies } = useContext(AppContext);

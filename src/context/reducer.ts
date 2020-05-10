@@ -8,7 +8,9 @@ export interface Action {
     api_total_pages?: number;
     app_total_pages?: number;
     query?: string;
+    searchType?: string;
     currentPage?: number;
+    genreID?: string;
     movie?: MovieDetail;
   };
 }
@@ -16,7 +18,12 @@ export interface Action {
 const reducer: Reducer<AppState, Action> = (state, action): AppState => {
   switch (action.type) {
     case Actions.SEARCH_MOVIES:
-      const { api_total_pages, app_total_pages, query } = action.payload;
+      const {
+        api_total_pages,
+        app_total_pages,
+        query,
+        genreID,
+      } = action.payload;
       return {
         ...state,
         movies: action.payload.movies,
@@ -24,6 +31,7 @@ const reducer: Reducer<AppState, Action> = (state, action): AppState => {
         app_total_pages: app_total_pages ? app_total_pages : 0,
         currentPage: 1,
         query: query ? query : '',
+        genreID,
         loading: false,
       };
     case Actions.SET_CURRENT_PAGE:
@@ -46,6 +54,8 @@ const reducer: Reducer<AppState, Action> = (state, action): AppState => {
         loading: false,
         movies: [],
         query: '',
+        searchType: state.searchType,
+        genreID: '',
       };
     case Actions.GET_MOVIE:
       return {
@@ -53,6 +63,19 @@ const reducer: Reducer<AppState, Action> = (state, action): AppState => {
         movie: action.payload.movie,
         loading: false,
       };
+    case Actions.SET_SEARCH_TYPE: {
+      const { searchType, genreID } = action.payload;
+      return {
+        api_total_pages: 0,
+        app_total_pages: 0,
+        currentPage: 0,
+        loading: false,
+        movies: [],
+        query: '',
+        searchType: searchType ? searchType : 'filme',
+        genreID,
+      };
+    }
     case Actions.MOVIE_NOT_FOUND:
       return {
         ...state,

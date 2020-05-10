@@ -10,9 +10,13 @@ const movieContext = createContext<AppContext>({
   loading: false,
   movies: [],
   query: '',
+  searchType: 'filme',
+  genreID: '',
   searchMovies: () => {},
+  searchByGenre: () => {},
   setCurrentPage: () => {},
   setLoading: () => {},
+  setSearchType: () => {},
 });
 
 export default movieContext;

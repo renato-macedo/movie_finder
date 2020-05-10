@@ -8,6 +8,7 @@ export enum Actions {
   SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
   CLEAR = 'CLEAR',
   SEARCH_MOVIES_ERROR = 'SEARCH_MOVIES_ERROR',
+  SET_SEARCH_TYPE = 'SET_SEARCH_TYPE',
 }
 
 export interface Movie {
@@ -45,12 +46,16 @@ export interface AppState {
   app_total_pages: number;
   currentPage: number;
   query: string;
+  searchType: string;
+  genreID?: string;
 }
 
 export interface AppContext extends AppState {
   searchMovies(text: string): void;
+  searchByGenre(genreID: string, text: string): void;
   getMovie(id: number): void;
   setCurrentPage(pageNumber: number): void;
   clear(): void;
   setLoading(): void;
+  setSearchType(searchType: string): void;
 }
