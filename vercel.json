@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/movies",
+      "status": 404,
+      "dest": "/404"
+    },
+    {
+      "src": "/api",
+      "status": 404,
+      "dest": "/404"
+    },
+    {
+      "src": "/api/movies",
+      "status": 404,
+      "dest": "/404"
+    }
+  ]
+}
